@@ -1,0 +1,780 @@
+/* =========================
+ROOT COLOR PALETTE
+   ========================= */
+
+:root {
+    --cream: #f7f3ee;
+    --soft-tan: #ede6dc;
+    --lavender-mist: #e8e3f2;
+    --lavender-dust: #cfc7e6;
+    --gold-soft: #d4b483;
+    --gold-glow: rgba(212, 180, 131, 0.35);
+    --text-main: #000000;
+    --text-muted: #555555;
+    --border-soft: rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================
+GLOBAL PAGE STYLES
+   ========================= */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg,
+            var(--cream),
+            var(--soft-tan));
+
+    font-family: "Georgia", "Times New Roman", serif;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+
+/* =========================
+SECTION HEADERS
+   ========================= */
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    margin-top: 60px;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+    color: var(--text-main);
+}
+
+
+/* =========================
+MISSION / STATEMENT BOX
+   ========================= */
+
+.mission {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 28px;
+
+    background: linear-gradient(145deg,
+            #ffffff,
+            var(--lavender-mist));
+
+    border-radius: 14px;
+    border: 1px solid var(--border-soft);
+
+    box-shadow:
+        0 0 0 1px var(--gold-soft),
+        0 12px 30px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.mission::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    margin: 20px auto 0;
+    background: linear-gradient(to right,
+            transparent,
+            var(--gold-soft),
+            transparent);
+}
+
+
+/* =========================
+QUOTE STYLE
+   ========================= */
+
+.quote {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 16px;
+}
+
+
+/* =========================
+CORE VALUES BOX
+   ========================= */
+
+.coreValues {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 24px;
+
+    background-color: var(--cream);
+    border-radius: 12px;
+    border-left: 5px solid var(--lavender-dust);
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================
+INFLUENCE / MEDIA SECTIONS
+   ========================= */
+
+.influence-box {
+    max-width: 900px;
+    margin: 0 auto 50px;
+    padding: 24px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 18px;
+
+    background: linear-gradient(135deg,
+            #ffffff,
+            var(--lavender-mist));
+
+    border-radius: 16px;
+    border: 1px solid var(--border-soft);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px var(--gold-glow);
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    /* centers the box */
+    padding: 30px;
+
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+}
+
+
+/* =========================
+IMAGE STYLING
+   ========================= */
+
+.influence-box img {
+    width: 100%;
+    max-width: 140px;
+    margin: auto;
+
+    border-radius: 10px;
+    object-fit: cover;
+
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.influence-box img:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.2),
+        0 0 10px var(--gold-glow);
+}
+
+
+/* =========================
+SUBTLE GOLD CORNER ACCENT
+   ========================= */
+
+.influence-box::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(212, 180, 131, 0.3);
+    pointer-events: none;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: center;
+}
+
+/* =========================
+PAGE LAYOUT
+   ========================= */
+
+body {
+    background-color: #f7f3ee;
+    color: #000;
+    font-family: "Georgia", "Times New Roman", serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+}
+
+body>* {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+
+/* =========================
+HEADERS
+   ========================= */
+
+h1 {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 16px;
+    font-size: 2.1rem;
+    font-weight: normal;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+    font-weight: normal;
+}
+
+h3 {
+    margin-top: 40px;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+
+/* =========================
+INTRO PARAGRAPH
+   ========================= */
+
+body>p {
+    text-align: center;
+    color: #444;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+
+/* =========================
+MISSION BOX
+   ========================= */
+
+.mission {
+    margin: 40px auto 60px auto;
+    padding: 30px;
+
+    background-color: #ffffff;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+}
+
+.mission h2 {
+    margin-top: 0;
+}
+
+.mission p {
+    margin-bottom: 0;
+}
+
+
+/* =========================
+CORE VALUES SECTION
+   ========================= */
+
+.coreValues {
+    text-align: center;
+    margin-top: 60px;
+}
+
+
+/* =========================
+HOVER CONTAINER (STORIES)
+   ========================= */
+
+.hover-container {
+    margin-top: 30px;
+}
+
+.hover-title {
+    cursor: pointer;
+    display: inline-block;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+STORY BOX
+   ========================= */
+
+.story {
+    margin-top: 16px;
+    padding: 24px;
+
+    background-color: #fafafa;
+    border-left: 4px solid #cfc7e6;
+    border-radius: 10px;
+
+    color: #333;
+}
+
+
+/* =========================
+QUOTE STYLE
+   ========================= */
+
+.quote {
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+    text-align: center;
+}
+
+
+/* =========================
+MEDIA / IMAGE GROUP
+   ========================= */
+
+.media-influences {
+    max-width: 800px;
+    margin: 30px auto 40px auto;
+    padding: 24px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+
+    background-color: #ffffff;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.media-influences img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* =========================
+FAQ LIST
+   ========================= */
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+}
+
+li {
+    margin-bottom: 12px;
+}
+
+li a {
+    text-decoration: none;
+    color: #000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+li a:hover {
+    border-bottom-color: #cfc7e6;
+}
+
+
+/* =========================
+FORM
+   ========================= */
+
+form {
+    max-width: 600px;
+    margin: 40px auto 80px auto;
+    padding: 30px;
+
+    background-color: #ffffff;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+}
+
+input,
+textarea {
+    width: 100%;
+    margin-top: 6px;
+    padding: 8px;
+    font-family: inherit;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    width: auto;
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* =========================
+TOP NAVIGATION
+   ========================= */
+
+.top-nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    padding: 20px 0;
+    margin-bottom: 40px;
+
+    background-color: transparent;
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #000;
+
+    font-size: 1rem;
+    font-weight: normal;
+
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+
+    transition: border-color 0.2s ease;
+}
+
+.top-nav a:hover {
+    border-bottom-color: #cfc7e6;
+    /* soft lavender */
+}
+
+.story ul {
+    margin-top: 12px;
+    padding-left: 20px;
+}
+
+.story li {
+    margin-bottom: 6px;
+}
+
+/* =========================
+SIDE-BY-SIDE PDF EMBEDS
+   ========================= */
+
+.pdf-row {
+    display: flex;
+    gap: 24px;
+}
+
+.pdf-row iframe {
+    width: 50%;
+    height: 600px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.story img {
+    max-width: 40%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* IMAGE ROW — side by side layout */
+.image-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 24px 0;
+}
+
+/* Images keep natural proportions */
+.image-row img {
+    max-width: 40%;
+    height: 40%;
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.image-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #222;
+    gap: 8px;
+}
+
+.image-link img {
+    max-width: 140px;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.image-link:hover img {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.image-link span {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.image-row {
+    display: flex;
+    justify-content: center;
+    /* centers items inside the row */
+    align-items: flex-start;
+    gap: 32px;
+
+    max-width: 900px;
+    /* controls how wide the row can get */
+    margin: 32px auto;
+    /* THIS centers the whole row */
+}
+
+.image-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* centers image + text */
+    text-align: center;
+    text-decoration: none;
+    color: #222;
+}
+
+.image-link img {
+    max-width: 180px;
+    /* adjust to taste */
+    height: auto;
+    border-radius: 10px;
+}
+
+.video-link {
+    position: relative;
+    display: inline-block;
+}
+
+.video-link img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+}
+
+.play-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 16px 22px;
+    border-radius: 50%;
+}
+
+.video-card {
+    max-width: 700px;
+    margin: 32px auto;
+    text-align: center;
+}
+
+.video-link {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.video-link img {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+}
+
+.play-badge {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 48px;
+    color: white;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 14px;
+
+    pointer-events: none;
+    /* 🔑 THIS FIXES CLICKING */
+}
+
+/* Regular images (NOT Tableau) */
+.story img {
+    max-width: none;
+    /* prevents unwanted shrinking */
+    height: auto;
+}
+
+
+.video-caption {
+    margin-top: 12px;
+    font-style: italic;
+    color: #555;
+}
+
+.image-row {
+    display: flex;
+    justify-content: center;
+    /* centers the whole group */
+    align-items: center;
+    flex-wrap: wrap;
+    /* ✅ allows wrapping */
+    gap: 24px;
+
+    max-width: 100%;
+    padding: 24px 0;
+}
+
+
+.image-row img {
+    height: 90px;
+    /* consistent visual size */
+    width: auto;
+    /* preserve proportions */
+    object-fit: contain;
+    flex-shrink: 0;
+    /* NEVER squish */
+
+    .image-row {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .image-row img {
+        width: auto;
+        height: auto;
+        max-height: 140px;
+    }
+
+}
+
+/* Tableau embed — responsive + contained */
+.tableau-section {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.tableau-responsive {
+    width: 100%;
+    max-width: 900px;
+    /* controls how wide it gets */
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    /* keeps proportions */
+    border-radius: 16px;
+    overflow: hidden;
+    /* prevents overflow */
+}
+
+.tableau-responsive iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* =========================
+TABLEAU — ISOLATED STYLES
+   ========================= */
+
+.tableau-only {
+    margin-top: 24px;
+}
+
+.tableau-only iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.tableau-responsive {
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.video-section {
+    display: flex;
+    justify-content: center;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 800px;
+    /* controls how wide the video can get */
+    aspect-ratio: 16 / 9;
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.feature-image {
+    width: 100%;
+    max-width: 700px;
+    /* adjust to taste */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /* centers it */
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.book-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.book-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+.book-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.book-card:hover .book-overlay {
+    opacity: 1;
+}

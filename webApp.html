@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Provo/Orem Amazing Race Creator</title>
+
+    <!-- Mapbox CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://unpkg.com/@mapbox/mapbox-gl-geocoder@4.7.2/dist/mapbox-gl-geocoder.css" rel="stylesheet" />
+
+    <!-- Mapbox JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-gl-geocoder@4.7.2/dist/mapbox-gl-geocoder.min.js"></script>
+
+    <!-- PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #fff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF4500, #FFD700);
+            padding: 16px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .step {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        button,
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        button {
+            background: #FF4500;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e03e00;
+        }
+
+        .checkbox-group label {
+            display: block;
+            margin: 4px 0;
+        }
+
+        .clueCard {
+            border: 1px solid #ccc;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 6px;
+            background: white;
+        }
+
+        #answerKey {
+            border: 2px dashed #FFD700;
+            background: #fff8ee;
+        }
+
+        #finalLocationDisplay {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+    </nav>
+
+<body>
+
+<header>🏁 Provo/Orem Amazing Race Creator</header>
+
+<div class="container">
+
+    <!-- STEP 1 -->
+    <div class="step">
+        <h3>Step 1 — Generate Suggested Stops</h3>
+        <button onclick="showSuggestions()">Generate Suggested Spots</button>
+        <div id="suggestions" class="checkbox-group"></div>
+
+        <h4>Add a Custom Stop</h4>
+        <input id="customStopInput" placeholder="Type a custom stop name">
+        <button onclick="addCustomStop()">Add Custom Stop</button>
+
+        <h4>Selected Stops (max 5)</h4>
+        <div id="selectedStops"></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+        <h3>Step 2 — Choose Final Destination</h3>
+        <div id="geocoderFinal"></div>
+        <div id="finalLocationDisplay">No final destination selected yet.</div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+        <h3>Step 3 — Choose Riddle Style</h3>
+        <select id="riddleStyle">
+            <option value="descriptive">Descriptive (feature-based)</option>
+        </select>
+    </div>
+
+    <button onclick="planRace()">Plan Race & Generate Clues</button>
+
+    <div id="output"></div>
+
+    <button onclick="toggleAnswerKey()">Show / Hide Answer Key</button>
+
+    <!-- ANSWER KEY -->
+    <div id="answerKey" class="step" style="display:none;">
+        <h3>🔑 Clue Answer Key</h3>
+
+        <h4>Team A Route</h4>
+        <ol id="answerTeamA"></ol>
+
+        <h4>Team B Route</h4>
+        <ol id="answerTeamB"></ol>
+
+        <h4>Final Destination</h4>
+        <p id="answerFinal"></p>
+    </div>
+
+    <button onclick="exportPDF()">Export Clue Sheet as PDF</button>
+
+</div>
+
+<script>
+    mapboxgl.accessToken = "pk.eyJ1IjoiYW1hemluZ3JhY2UxMjMiLCJhIjoiY21qM2N4ZG9zMDM1dzNmcTIzbWtscWhzdCJ9.v5DG7RSgdhz4QJTiS-68Bw";
+
+    const curatedSpots = [
+        "Rock Canyon Trailhead",
+        "Kiwanis Park",
+        "Hillcrest Pickleball Courts",
+        "Provo River Parkway",
+        "Y Trail Parking Lot",
+        "BYU Creamery",
+        "Provo City Center Temple",
+        "Utah Lake Marina",
+        "Memorial Park, Provo",
+        "Covey Center for the Arts"
+    ];
+
+    let selectedStops = [];
+    let finalPlace = null;
+
+    function showSuggestions() {
+        const container = document.getElementById("suggestions");
+        container.innerHTML = "";
+        curatedSpots.sort(() => Math.random() - 0.5).forEach(loc => {
+            container.innerHTML += `
+                <label>
+                    <input type="checkbox" value="${loc}" onchange="toggleStop(this)">
+                    ${loc}
+                </label>`;
+        });
+    }
+
+    function toggleStop(el) {
+        if (el.checked) {
+            if (selectedStops.length >= 5) {
+                alert("Maximum of 5 stops.");
+                el.checked = false;
+                return;
+            }
+            selectedStops.push(el.value);
+        } else {
+            selectedStops = selectedStops.filter(x => x !== el.value);
+        }
+        document.getElementById("selectedStops").innerText = selectedStops.join(" → ");
+    }
+
+    function addCustomStop() {
+        const val = document.getElementById("customStopInput").value.trim();
+        if (!val || selectedStops.length >= 5) return;
+        selectedStops.push(val);
+        document.getElementById("selectedStops").innerText = selectedStops.join(" → ");
+        document.getElementById("customStopInput").value = "";
+    }
+
+    const geocoderFinal = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    });
+    document.getElementById("geocoderFinal").appendChild(geocoderFinal.onAdd());
+
+    geocoderFinal.on('result', e => {
+        finalPlace = e.result.place_name;
+        document.getElementById("finalLocationDisplay").innerText = "Final: " + finalPlace;
+    });
+
+    function generateClue() {
+        const clues = [
+            "Move onward where paths stretch wide and shadows fade toward open skies.",
+            "From a place of gathering, seek where footsteps echo next.",
+            "Let laughter and movement guide you onward.",
+            "Wander until space opens and purpose sharpens.",
+            "Follow the quiet hint hidden in plain sight."
+        ];
+        return clues[Math.floor(Math.random() * clues.length)];
+    }
+
+    function planRace() {
+        if (selectedStops.length < 3 || !finalPlace) {
+            alert("Select at least 3 stops and a final destination.");
+            return;
+        }
+
+        const teamA = [...selectedStops];
+        const teamB = [...selectedStops].reverse();
+
+        let html = `<h2>Team A Clues</h2>`;
+        teamA.forEach((_, i) => {
+            html += `<div class="clueCard"><strong>A${i + 1}:</strong> ${generateClue()}</div>`;
+        });
+
+        html += `<h2>Team B Clues</h2>`;
+        teamB.forEach((_, i) => {
+            html += `<div class="clueCard"><strong>B${i + 1}:</strong> ${generateClue()}</div>`;
+        });
+
+        document.getElementById("output").innerHTML = html;
+
+        document.getElementById("answerTeamA").innerHTML =
+            teamA.map(s => `<li>${s}</li>`).join("");
+
+        document.getElementById("answerTeamB").innerHTML =
+            teamB.map(s => `<li>${s}</li>`).join("");
+
+        document.getElementById("answerFinal").innerText = finalPlace;
+    }
+
+    function toggleAnswerKey() {
+        const key = document.getElementById("answerKey");
+        key.style.display = key.style.display === "none" ? "block" : "none";
+    }
+
+    function exportPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.text(document.getElementById("output").innerText, 10, 10);
+        doc.save("AmazingRaceClues.pdf");
+    }
+</script>
+
+</body>
+</html>
